@@ -1,16 +1,9 @@
+import java.util.stream.*;
 class Solution {
     public int solution(int n) {
-		int cnt = 0;
-		for (int i = 4; i <= n; i++) {
-			if(checkComposite(i)) cnt++;
-		}
-        return cnt;
-    }
-	
-	public boolean checkComposite(int number) {
-		for (int i = 2; i <= number/2; i++) {
-			if(number%i==0) return true;
-		}
-		return false;
+		return (int) IntStream
+				.rangeClosed(4, n)
+				.filter(i -> (int) IntStream.rangeClosed(2, i/2).filter(j -> i % j == 0).count() > 0)
+				.count();
 	}
 }
