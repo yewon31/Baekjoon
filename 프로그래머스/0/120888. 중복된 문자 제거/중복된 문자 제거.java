@@ -1,9 +1,10 @@
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 class Solution {
     public String solution(String my_string) {
-        StringBuilder sb = new StringBuilder();
-        for (char ch : my_string.toCharArray()) {
-            if(!sb.toString().contains(ch+"")) sb.append(ch);
-        }
-        return sb.toString();
+		Set<String> set = new LinkedHashSet<String>();
+		set.addAll(Arrays.asList(my_string.split("")));
+		return String.join("", set);
     }
 }   
