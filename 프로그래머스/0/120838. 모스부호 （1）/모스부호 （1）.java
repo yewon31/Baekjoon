@@ -1,20 +1,29 @@
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 class Solution {
     public String solution(String letter) {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put(".-", "a");     map.put("-...", "b");   map.put("-.-.", "c");   map.put("-..", "d");
-        map.put(".", "e");      map.put("..-.", "f");   map.put("--.", "g");    map.put("....", "h");
-        map.put("..", "i");     map.put(".---", "j");   map.put("-.-", "k");    map.put(".-..", "l");
-        map.put("--", "m");     map.put("-.", "n");     map.put("---", "o");    map.put(".--.", "p");
-        map.put("--.-", "q");   map.put(".-.", "r");    map.put("...", "s");    map.put("-", "t");
-        map.put("..-", "u");    map.put("...-", "v");   map.put(".--", "w");    map.put("-..-", "x");
-        map.put("-.--", "y");   map.put("--..", "z");
+        Map<String, String> morse = new HashMap<>(){
+            {
+                put(".-","a");      put("-...","b");
+                put("-.-.","c");    put("-..","d");
+                put(".","e");       put("..-.","f");
+                put("--.","g");     put("....","h");
+                put("..","i");      put(".---","j");
+                put("-.-","k");     put(".-..","l");
+                put("--","m");      put("-.","n");
+                put("---","o");     put(".--.","p");
+                put("--.-","q");    put(".-.","r");
+                put("...","s");     put("-","t");
+                put("..-","u");     put("...-","v");
+                put(".--","w");     put("-..-","x");
+                put("-.--","y");    put("--..","z");
+            }
+        };
         return Arrays.stream(letter.split(" "))
-                .map(key -> map.get(key))
+                .map(morse::get) //key -> morse.get(key)
                 .collect(Collectors.joining());
     }
 }
