@@ -2,14 +2,10 @@ import java.util.Arrays;
 
 class Solution {
     public int solution(int[] array, int n) {
-        int[] arr = Arrays.stream(array).distinct().sorted().toArray();
-        int prevGap = Math.abs(n - arr[0]) + 1;
-        for (int i = 0; i < arr.length; i++) {
-            int gap = Math.abs(n - arr[i]);
-            if (prevGap <= gap) return arr[i - 1];
-            else if (i == arr.length - 1) return arr[i];
-            prevGap = gap;
-        }
-        return 0;
+        int minGap = Arrays.stream(array)
+                            .map(value -> Math.abs(n - value))
+                            .min()
+                            .orElse(Integer.MIN_VALUE); //Optional 객체가 비어있으면 기본값, 비어있지않으면 Optional 객체의 값 추출
+        return (Arrays.stream(array).anyMatch(value -> value == n - minGap)) ? n - minGap : n + minGap;
     }
 }
