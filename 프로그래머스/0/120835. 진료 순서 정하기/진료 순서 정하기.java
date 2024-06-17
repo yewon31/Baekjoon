@@ -8,11 +8,11 @@ class Solution {
             int order = 0;
             for (int j = 0; j < sortedArr.length; j++) {
                 if (emergency[i] == sortedArr[j]) {
-                    order = j;
+                    order = emergency.length - j;
                     break;
                 }
             }
-            emergency[i] = emergency.length - order;
+            emergency[i] = order;
         }
         return emergency;
     }
