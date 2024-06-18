@@ -1,15 +1,19 @@
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class Solution {
     public int[] solution(int[] arr, int[][] queries) {
+        /****** List<Integer>로 변환 ******/
+        List<Integer> list = Arrays.stream(arr) // IntStream
+                                    .boxed() // Stream<Integer>
+                                    .collect(Collectors.toList()); // List<Integer>
+        /****** Collections.swap ******/
         for (int[] query : queries) {
-            int i = query[0];
-            int j = query[1];
-            /****** SWAP ******/
-            int tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
+            Collections.swap(list, query[0], query[1]);
         }
-        return arr;
+        /****** int[]로 되돌리기 ******/
+        return list.stream().mapToInt(Integer::valueOf).toArray();
     }
 }
