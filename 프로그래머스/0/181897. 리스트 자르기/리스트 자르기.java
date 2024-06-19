@@ -1,6 +1,6 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 class Solution {
     public int[] solution(int n, int[] slicer, int[] num_list) {
@@ -13,16 +13,9 @@ class Solution {
             case 1 : return Arrays.copyOf(num_list, b+1);
             case 2 : return Arrays.copyOfRange(num_list, a, num_list.length);
             case 3 : return Arrays.copyOfRange(num_list, a, b+1);
-            case 4 :
-                List<Integer> list = new ArrayList<>();
-                for (int i = a; i <= b; i += c) {
-                    list.add(num_list[i]);
-                }
-                int[] result = new int[list.size()];
-                for (int i = 0; i < list.size(); i++) {
-                    result[i] = list.get(i);
-                }
-                return result;
+            case 4 : return IntStream.iterate(a, i -> i <= b, i -> i + c)
+                            .map(i -> num_list[i])
+                            .toArray();
         }
         return new int[0];
     }
