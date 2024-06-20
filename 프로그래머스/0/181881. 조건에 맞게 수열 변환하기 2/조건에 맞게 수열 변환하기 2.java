@@ -8,13 +8,11 @@ class Solution {
                 int num = arr[i];
                 if ((num >= 50) && (num % 2 == 0)) {
                     flag = true;
-                    num /= 2;
-                }
-                if ((num < 50) && (num % 2 == 1)) {
+                    arr[i] = num / 2;
+                } else if ((num < 50) && (num % 2 == 1)) {
                     flag = true;
-                    num = num * 2 + 1;
+                    arr[i] = num * 2 + 1;
                 }
-                arr[i] = num;
             }
             /****** 연산을 안했다면 탈출 ******/
             if (!flag) break;
