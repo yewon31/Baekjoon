@@ -6,8 +6,8 @@ class Solution {
         Stack<Integer> stack = new Stack<>();
         int i = 0;
         while (i < arr.length) {
-            if (stack.empty()) stack.add(arr[i++]);
-            else if (stack.peek() < arr[i]) stack.add(arr[i++]);
+            if (stack.empty()) stack.push(arr[i++]);
+            else if (stack.peek() < arr[i]) stack.push(arr[i++]);
             else stack.pop();
         }
         return stack.stream().mapToInt(Integer::intValue).toArray();
