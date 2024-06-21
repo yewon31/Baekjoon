@@ -5,9 +5,7 @@ class Solution {
         StringTokenizer st = new StringTokenizer(my_string);
         int result = Integer.parseInt(st.nextToken()); // 초기값
         while (st.hasMoreTokens()) {
-            String s = st.nextToken();
-            if (s.equals("+")) result += Integer.parseInt(st.nextToken());
-            else if (s.equals("-")) result -= Integer.parseInt(st.nextToken());
+            result += (st.nextToken().equals("+") ? 1 : -1) * Integer.parseInt(st.nextToken());
         }
         return result;
     }
