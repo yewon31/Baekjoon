@@ -9,9 +9,8 @@ class Solution {
         String pw = id_pw[1];
         for (String[] account : db) {
             if (id.equals(account[0])) {
-                if (pw.equals(account[1])) {
-                    return "login";
-                } else return "wrong pw";
+                if (pw.equals(account[1])) return "login";
+                return "wrong pw";
             }
         }
         return "fail";
