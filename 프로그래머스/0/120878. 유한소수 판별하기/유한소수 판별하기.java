@@ -10,6 +10,7 @@ class Solution {
         return b == 1 ? 1 : 2;
     }
     public int gcd(int a, int b) {
-        return (b == 0) ? a : gcd(b, a % b);
+        int c = a % b; // 나머지
+        return (c == 0) ? b : gcd(b, c); // 나눈 수를 나머지로 나누기
     }
 }
