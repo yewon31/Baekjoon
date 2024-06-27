@@ -2,11 +2,21 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] numlist, int n) {
-        return Arrays.stream(numlist)
-                .boxed() // Comparator 인터페이스를 사용하기 위해 IntStream을 Stream<Integer>로 변환
-                .sorted(Comparator.reverseOrder())                      // 역순 정렬
-                .sorted(Comparator.comparing(num -> Math.abs(num - n))) // n과의 차이를 기준으로 정렬
-                .mapToInt(i -> i)   // int[]로 변환하기 위해 IntStream으로 우선 변환
-                .toArray();         // int[]로 변환
+        for (int i = 0; i < numlist.length - 1; i++) {
+            int minIdx = i;
+            for (int j = i + 1; j < numlist.length; j++) {
+                int absJ = Math.abs(numlist[j] - n);
+                int absMin = Math.abs(numlist[minIdx] - n);
+                if ((absJ < absMin) || (absJ == absMin && numlist[j] > numlist[minIdx])) minIdx = j;
+            }
+            swap(numlist, i, minIdx);
+        }
+        return numlist;
+    }
+    public int[] swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+        return arr;
     }
 }
