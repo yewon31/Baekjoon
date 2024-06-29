@@ -11,9 +11,9 @@ public class Main {
 
         // 문제의 설명에 따라 Equilateral, Isosceles, Scalene, Error 중 하나를 출력한다.
         String answer = "";
-        if (angleA == 60 && angleB == 60 && angleC == 60) answer = "Equilateral";
-        else if (angleA + angleB + angleC == 180) {
-            if (angleA == angleB || angleB == angleC || angleA == angleC) answer = "Isosceles"; // 두 각이 같은 경우
+        if (angleA + angleB + angleC == 180) {
+            if (angleA == 60 && angleB == 60 && angleC == 60) answer = "Equilateral";
+            else if (angleA == angleB || angleB == angleC || angleA == angleC) answer = "Isosceles"; // 두 각이 같은 경우
             else answer = "Scalene";
         } else answer = "Error";
         System.out.println(answer);
