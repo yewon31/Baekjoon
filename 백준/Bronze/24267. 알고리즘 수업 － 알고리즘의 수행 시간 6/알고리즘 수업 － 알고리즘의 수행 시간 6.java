@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
     // O(N^3)
@@ -17,7 +15,7 @@ public class Main {
         */
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         long n = Integer.parseInt(br.readLine()); // 1 ≤ n ≤ 500,000
-        System.out.println((n * (n - 1) * (n - 2)) / 6); // 수행 횟수 - nC3 = n*n-1*n-2 / 3!
+        System.out.println((n * (n - 1) * (n - 2)) / (3 * 2 * 1)); // 수행 횟수 - nC3 = n*n-1*n-2 / 3!
         System.out.println(3); // 최고차항의 차수
     }
 }
