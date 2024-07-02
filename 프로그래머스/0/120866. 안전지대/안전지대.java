@@ -8,11 +8,11 @@ class Solution {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == 0) {
                     // 0인데 주위에 1이 있을 때 2로 변경
-                    if (checkMine(board, i - 1, j - 1) || checkMine(board, i - 1, j)
-                            || checkMine(board, i - 1, j + 1) || checkMine(board, i, j - 1)
-                            || checkMine(board, i, j + 1) || checkMine(board, i + 1, j - 1)
-                            || checkMine(board, i + 1, j) || checkMine(board, i + 1, j + 1)) {
-                        board[i][j] = 2;
+                    for (int k = i - 1; k <= i + 1; k++) {
+                        for (int l = j - 1; l <= j + 1; l++) {
+                            if (k < 0 || k >= board.length || l < 0 || l >= board.length) continue;
+                            if (board[k][l] == 1) board[i][j] = 2;
+                        }
                     }
                 }
             }
@@ -21,12 +21,5 @@ class Solution {
         return (int) Arrays.stream(board)
                 .mapToInt(arr -> (int) Arrays.stream(arr).filter(i -> i == 0).count())
                 .sum();
-    }
-
-    // 배열에서 특정 칸(i*j)의 값이 1인지 반환
-    public boolean checkMine(int[][] board, int i, int j) {
-        if (i < 0 || i >= board.length || j < 0 || j >= board.length) return false;
-        if (board[i][j] == 1) return true;
-        return false;
     }
 }
