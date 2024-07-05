@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
@@ -9,23 +10,10 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-        }
-        insertionSort(arr);
-        for (int i : arr) {
-            System.out.println(i);
-        }
-    }
-
-    public static void insertionSort(int[] numbers) { // 삽입정렬
-        for (int i = 1; i < numbers.length; i++) {
-            int key = numbers[i];
-            int j = i - 1;
-            while (j >= 0 && numbers[j] > key) {
-                numbers[j + 1] = numbers[j--];
-            }
-            numbers[j + 1] = key;
-        }
+        for (int i = 0; i < N; i++) arr[i] = Integer.parseInt(br.readLine());
+        Arrays.sort(arr);
+        StringBuilder sb = new StringBuilder();
+        for (int i : arr) sb.append(i).append("\n");
+        System.out.println(sb.toString());
     }
 }
