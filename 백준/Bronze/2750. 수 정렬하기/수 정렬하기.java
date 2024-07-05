@@ -12,23 +12,20 @@ public class Main {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
-        selectionSort(arr);
+        insertionSort(arr);
         for (int i : arr) {
             System.out.println(i);
         }
     }
 
-    public static void selectionSort(int[] numbers) { // 선택정렬
-        for (int i = 0; i < numbers.length; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < numbers.length; j++) {
-                if (numbers[j] < numbers[minIndex]) {
-                    minIndex = j;
-                }
+    public static void insertionSort(int[] numbers) { // 삽입정렬
+        for (int i = 1; i < numbers.length; i++) {
+            int key = numbers[i];
+            int j = i - 1;
+            while (j >= 0 && numbers[j] > key) {
+                numbers[j + 1] = numbers[j--];
             }
-            int temp = numbers[i];
-            numbers[i] = numbers[minIndex];
-            numbers[minIndex] = temp;
+            numbers[j + 1] = key;
         }
     }
 }
