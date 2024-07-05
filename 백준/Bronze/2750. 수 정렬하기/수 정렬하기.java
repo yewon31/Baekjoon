@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
 
 public class Main {
 
@@ -13,9 +12,23 @@ public class Main {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
-        Arrays.sort(arr);
+        selectionSort(arr);
         for (int i : arr) {
             System.out.println(i);
+        }
+    }
+
+    public static void selectionSort(int[] numbers) { // 선택정렬
+        for (int i = 0; i < numbers.length; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[j] < numbers[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            int temp = numbers[i];
+            numbers[i] = numbers[minIndex];
+            numbers[minIndex] = temp;
         }
     }
 }
