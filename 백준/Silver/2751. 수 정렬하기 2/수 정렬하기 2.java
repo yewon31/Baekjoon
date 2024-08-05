@@ -9,6 +9,7 @@ class Main {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(br.readLine()); // 절댓값이 1,000,000보다 작거나 같은 정수
         }
-        Arrays.stream(arr).sorted().forEach(System.out::println);
+        Arrays.sort(arr);
+        Arrays.stream(arr).forEach(System.out::println);
     }
 }
