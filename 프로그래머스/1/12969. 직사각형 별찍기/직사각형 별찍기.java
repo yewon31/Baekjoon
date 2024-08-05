@@ -6,8 +6,8 @@ class Solution {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
-        for (int i = 0; i < m; i++) {
-            System.out.println("*".repeat(n));
-        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < m; i++) sb.append("*".repeat(n)+"\n");
+        System.out.println(sb.toString());
     }
 }
