@@ -6,19 +6,19 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        Map<Integer, int[]> map = new LinkedHashMap<>();
-        int idx = 0;
+        int[][] dataList = new int[N][2];
         /* 몸무게, 키 저장 */
-        while (idx++ < N) {
+        for (int idx = 0; idx < N; idx++) {
             String[] arr = br.readLine().split(" ");
-            map.put(idx, new int[]{Integer.parseInt(arr[0]), Integer.parseInt(arr[1])}); // 몸무게, 키
+            dataList[idx][0] = Integer.parseInt(arr[0]);
+            dataList[idx][1] = Integer.parseInt(arr[1]);
         }
         /* 덩치 등수 구하기 */
-        List<String> list = new ArrayList<>(); // 간편하게 String.join 하기 위해 String으로 저장
-        for (int[] data : map.values()) {
-            long cnt = map.values().stream().filter(i -> i[0] > data[0] && i[1] > data[1]).count() + 1;
-            list.add(cnt + "");
+        StringBuilder sb = new StringBuilder();
+        for (int[] data : dataList) {
+            long rank = Arrays.stream(dataList).filter(i -> i[0] > data[0] && i[1] > data[1]).count() + 1;
+            sb.append(rank).append(' ');
         }
-        System.out.println(String.join(" ", list)); // 덩치 등수 순서대로 출력
+        System.out.println(sb);
     }
 }
