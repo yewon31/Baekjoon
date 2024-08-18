@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    // 2차원 평면 위의 점 N개가 주어질 때, y좌표 -> x좌표 순서로 정렬 후 출력
+    // 2차원 평면 위의 점 N개가 주어질 때, x좌표 -> y좌표 순서로 정렬 후 출력
     public static void main(String[] args) throws IOException {
 
         /* [1] 입력 */
@@ -16,7 +16,7 @@ public class Main {
         }
 
         /* [2] 정렬 */
-        Arrays.sort(arrList, Comparator.comparingInt((int[] a) -> a[1]).thenComparingInt(a -> a[0]));
+        Arrays.sort(arrList, (a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]); // y좌표가 다를 경우 y좌표 오름차순
 
         /* [3] 출력 */
         StringBuilder sb = new StringBuilder();
