@@ -1,41 +1,70 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    // M×N 크기의 보드를 잘라서 8x8 크기의 체스판으로 만들 때, 다시 칠해야 하는 정사각형의 최소 개수 출력
-    public static void main(String[] args) throws IOException {
-
-        /* [1] 입력 및 치환 */
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken()); // 행
-        int M = Integer.parseInt(st.nextToken()); // 열
-
-        String[] arr = new String[N];
-        for (int i = 0; i < N; i++) {
-            String str = br.readLine(); // WBWBWBWB
-            arr[i] = str.replaceAll("B", "1").replaceAll("W", "0"); // 검은색은 1로, 흰색은 0으로 치환
-        }
-
-        /* [2] 최솟값 찾기 */
-        int cnt = 32; // 최댓값
-        for (int i = 0; i <= N - 8; i++) {
-            for (int j = 0; j <= M - 8; j++) {
-                cnt = Math.min(cnt, getCnt(arr, j, i, 0)); // 흰색으로 시작하는 체스판과 비교
-                cnt = Math.min(cnt, getCnt(arr, j, i, 1)); // 검은색으로 시작하는 체스판과 비교
-            }
-        }
-        System.out.println(cnt);
-    }
-
-    // arr 배열을(x열부터, y행부터) startNum으로 시작되는 체스판으로 만들기 위해 다시 칠해야 하는 정사각형 개수 반환
-    public static int getCnt(String[] arr, int x, int y, int startNum) {
-        int cnt = 0; // 다시 칠해야 하는 정사각형 개수
-        for (int i = 0; i < 8; i++) {
-            String chess = i % 2 == startNum ? "01010101" : "10101010";
-            int xorResult = Integer.parseInt(chess, 2) ^ Integer.parseInt(arr[i + y].substring(x, x + 8), 2); // 비트 XOR 연산자
-            cnt += Integer.bitCount(xorResult); // XOR 결과에서 1의 개수 누적
-        }
-        return cnt;
-    }
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		// n x m 의 이차배열 생성
+		char[][] arr = new char[n][m];
+		for(int i = 0; i < arr.length; i++) {
+			// 한 줄씩 입력받은 뒤 toCharArray() 로 문자 배열 생성
+			arr[i] = br.readLine().toCharArray();
+		}
+    
+    // 체스판 전체의 문자 개수는 8 * 8 = 64
+		int min = 64;
+		for(int i = 0; i <= arr.length - 8; i++) {
+			for(int j = 0; j <= arr[i].length - 8; j++) {
+				// 'W' 부터 시작하는 체스판과 일치여부 카운트
+				int cnt1 = 0;
+				// 'B' 부터 시작하는 체스판과 일치여부 카운트
+				int cnt2 = 0;
+				// (i, j) 부터 8 x 8 의 공간을 탐색
+				for(int k = 0; k < 8; k++) {
+					for(int l = 0; l < 8; l++) {
+						// x y 평면에서 x = (i+k), y = (j+l)
+						// W B W    x + y 가 짝수인 좌표 -> 'W'
+						// B W B    x + y 가 홀수인 좌표 -> 'B'
+						// W B W
+						// 일치하면 'W' 부터 시작하는 체스판 카운트 값 cnt1++
+						// 아닌경우 'B' 부터 시작하는 체스판 카운트 값 cnt2++
+						if((i + k + j + l) % 2 == 0) {
+							if(arr[i + k][j + l] == 'W') {
+								cnt1++;
+							} else {
+								cnt2++;
+							}
+						} else {
+						// 위와 반대되게 작성
+							if(arr[i + k][j + l] == 'W') {
+								cnt2++;
+							} else {
+								cnt1++;
+							}
+						}
+					}
+				}
+				// 일치하지 않는 개수 -> 바꿔야 될 횟수
+				// 'W'체스판과 'B'체스판 중 작은값 저장
+				if(64 - cnt1 < min | 64 - cnt2 < min) {
+					if(64 - cnt1 >= 64 - cnt2) {
+						min = 64 - cnt2;
+					} else {
+						min = 64 - cnt1;
+					}
+				}
+			}			
+		}
+		// 최소 바꿀 횟수 출력
+		System.out.println(min);
+		br.close();
+	}
 }
