@@ -11,23 +11,23 @@ public class Main {
             /* [1] 입력 */
             String str = br.readLine(); // 영문, 공백, 소괄호, 대괄호로 이루어져 있으며, 온점으로 끝나고, 길이는 100글자보다 작거나 같다.
             if (str.equals(".")) break;
-            /* [2] 짝 맞는 괄호 제거 */
+            /* [2] 짝 맞는 괄호 판단 */
             Stack<Character> stack = new Stack<>();
-            String result = "yes";
+            boolean isBalanced = true;
             for (char c : str.toCharArray()) {
                 if (c == '[' || c == '(') stack.push(c); // 여는 괄호 push
                 else if ((c == ']') || (c == ')')) { // 닫는 괄호
-                    if (!stack.isEmpty() && ((c == ']' && stack.peek() == '[')
-                            || (c == ')' && stack.peek() == '('))) { // 비어있지 않고 짝이 있으면
-                        stack.pop();
-                    } else { // 비어있거나 짝이 없으면
-                        result = "no";
+                    if (stack.isEmpty() || ((c == ']' && stack.peek() != '[')
+                            || (c == ')' && stack.peek() != '('))) { // 스택이 비어있거나 짝이 맞지 않으면
+                        isBalanced = false;
                         break;
                     }
+                    stack.pop(); // 짝이 맞는 경우 스택에서 제거
                 }
             }
 
-            sb.append((stack.isEmpty() ? result : "no") + "\n");
+            if (!stack.isEmpty()) isBalanced = false;
+            sb.append(isBalanced ? "yes" : "no").append("\n");
         }
 
         /* [3] 출력 */
