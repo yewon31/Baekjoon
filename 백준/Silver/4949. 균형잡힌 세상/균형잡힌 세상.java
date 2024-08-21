@@ -12,21 +12,21 @@ public class Main {
             String str = br.readLine(); // 영문, 공백, 소괄호, 대괄호로 이루어져 있으며, 온점으로 끝나고, 길이는 100글자보다 작거나 같다.
             if (str.equals(".")) break;
             /* [2] 짝 맞는 괄호 판단 */
-            Stack<Character> stack = new Stack<>();
-            boolean isBalanced = true;
+            Stack<Character> stack = new Stack<>(); //✨
+            boolean isBalanced = true; // 플래그
             for (char c : str.toCharArray()) {
-                if (c == '[' || c == '(') stack.push(c); // 여는 괄호 push
+                if (c == '[' || c == '(') stack.push(c); // 여는 괄호 push✨
                 else if ((c == ']') || (c == ')')) { // 닫는 괄호
                     if (stack.isEmpty() || ((c == ']' && stack.peek() != '[')
                             || (c == ')' && stack.peek() != '('))) { // 스택이 비어있거나 짝이 맞지 않으면
-                        isBalanced = false;
+                        isBalanced = false; // 불균형 1
                         break;
                     }
-                    stack.pop(); // 짝이 맞는 경우 스택에서 제거
+                    stack.pop(); // 짝이 맞는 경우 스택에서 제거✨
                 }
             }
 
-            if (!stack.isEmpty()) isBalanced = false;
+            if (!stack.isEmpty()) isBalanced = false; // 불균형 2
             sb.append(isBalanced ? "yes" : "no").append("\n");
         }
 
